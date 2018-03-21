@@ -1,0 +1,48 @@
+Roll Number - 20161035
+OS Assignment 5
+
+Alternative 1: The Priority Based Scheduler
+
+Comparison between default scheduler of xv6, that is Round Robin and Priority Based Scheduler :-
+
+* Round Robin Scheduler -  It uses time slices also known as time quanta which are assigned to each process in equal portions and in
+circular order, handling all processes without priority (also known as cyclic executive). Round-robin scheduling is
+simple, easy to implement, and starvation-free.
+
+* Priority Based Scheduler - Priority scheduling involves priority assignment to every process, and processes with higher priorities
+ are carried out first, whereas tasks with equal priorities are carried out on round robin basis.
+
+foo.c -> Its forking new processes for testing by doing useless calculations.
+
+for(k=0; k<n; k++)
+    {
+        id = fork();
+        if(id < 0)
+            printf(1, "%d failed in fork!\n", getpid());
+        else if(id > 0)
+        {   // Parent
+            printf(1, "Parent %d creating child %d\n", getpid(), id);
+            wait();
+        }
+        else
+        {   // Child
+            printf(1, "Child %d created\n", getpid());
+            for(z=0;z<8000000.0;z+=0.001)
+                x = x + 3.14*69.69; // Useless calculations to consume CPU time
+            break;
+        }
+    }
+    exit();
+}
+
+nice.c -> Its used to set priority according to the mentioned pid.
+
+if(priority<0 || priority>100)
+    {
+        printf(2, "Invalid priority (0-100)!\n");
+        exit();
+    }
+    printf(1, "pid=%d, pr=%d\n", pid, priority);
+    ChangePriority(pid, priority); //changes priority. Defined in proc.cs
+
+    exit();
